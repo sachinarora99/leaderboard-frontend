@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let entry of history; let i = index">
+    <tr *ngFor="let entry of filteredHistory; let i = index">
       <td>{{ i + 1 }}</td>
       <td>{{ entry.userId.name }}</td>
       <td>
