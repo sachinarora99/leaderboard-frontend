@@ -8,6 +8,7 @@ import { UserService } from '../../services/user.service';
 })
 export class ClaimHistoryComponent implements OnInit {
   history: ClaimHistory[] = [];
+  filteredHistory: ClaimHistory[] = [];
 
   constructor(private userService: UserService) {}
 
@@ -20,8 +21,10 @@ export class ClaimHistoryComponent implements OnInit {
 
   fetchHistory(): void {
     this.userService.getHistory().subscribe((data) => {
-      // Sort latest first
+      // Sort and filter invalid entries
       this.history = data.sort((a, b) => new Date(b.claimedAt).getTime() - new Date(a.claimedAt).getTime());
+
+      this.filteredHistory = this.history.filter(entry => !!entry && !!entry.userId);
     });
   }
 }
